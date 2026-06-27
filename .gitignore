@@ -1,0 +1,19 @@
+# OS
+.DS_Store
+
+# Local tooling / editor
+.claude/
+.vscode/
+.idea/
+
+# Node
+node_modules/
+dist/
+dist-ssr/
+*.log
+
+# Env / secrets
+.env
+.env.*
+!.env.example
+*.local
