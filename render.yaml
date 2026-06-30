@@ -1,0 +1,20 @@
+# Render Blueprint — OpenBook 微小说原型
+# 部署：Render Dashboard → New → Blueprint → 选本仓库 → 填下方 4 个环境变量
+services:
+  - type: web
+    name: openbook-prototype
+    runtime: node
+    plan: free
+    rootDir: experiments/microfiction-prototype
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    autoDeploy: true
+    envVars:
+      - key: LLM_BASE_URL
+        sync: false   # 在 Dashboard 填，避免密钥进仓库
+      - key: LLM_API_KEY
+        sync: false
+      - key: LLM_MODEL
+        sync: false
+      - key: LLM_PROVIDER
+        sync: false
