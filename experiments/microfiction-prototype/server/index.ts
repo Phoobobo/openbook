@@ -20,6 +20,10 @@ const SEEDS_DIR = process.env.SEEDS_DIR
   ? path.resolve(process.env.SEEDS_DIR)
   : path.resolve(__dirname, '..', '..', '..', 'seeds');
 
+// 生产环境下由 Express 同时托管前端构建产物（vite build → dist/）
+const CLIENT_DIR = path.resolve(__dirname, '..', 'dist');
+app.use(express.static(CLIENT_DIR));
+
 interface GenerateBody {
   systemPrompt?: string;
   userPrompt?: string;
@@ -107,6 +111,15 @@ app.get('/api/seeds', async (_req: Request, res: Response) => {
       return;
     }
     res.status(500).json({ error: err instanceof Error ? err.message : String(err) });
+  }
+});
+
+// SPA 回退：非 /api 的 GET 请求一律返回前端入口（支持前端路由刷新）
+app.use((req: Request, res: Response) => {
+  if (req.method === 'GET' && !req.path.startsWith('/api')) {
+    res.sendFile(path.join(CLIENT_DIR, 'index.html'));
+  } else {
+    res.status(404).json({ error: 'Not found' });
   }
 });
 
