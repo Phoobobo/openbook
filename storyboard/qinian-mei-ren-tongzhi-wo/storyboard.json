@@ -1,0 +1,136 @@
+{
+  "$schema": "./storyboard.schema.json",
+  "storyId": "qinian-mei-ren-tongzhi-wo",
+  "title": "七年没人通知我",
+  "logline": "暴雨中的重逢，和一个迟到七年的痊愈通知。",
+  "format": {
+    "aspect": "9:16",
+    "targetDurationSec": 65,
+    "clipDurationSec": [6, 8],
+    "platforms": ["douyin", "xiaohongshu", "shipinhao"]
+  },
+  "style": {
+    "zh": "电影感写实。白日突降暴雨，北京国贸 CBD。青灰蓝主色调 + 暖金点缀。浅景深，长焦压缩，雨水反光、湿漉沥青，35mm 胶片颗粒。王家卫式都市抒情。4K。",
+    "en": "Cinematic realism. Sudden daytime rainstorm, Beijing Guomao CBD. Slate-teal palette with warm gold accents. Shallow depth of field, telephoto compression, rain reflections on wet asphalt, 35mm film grain. Wong Kar-wai urban lyricism. 4K."
+  },
+  "characters": {
+    "her": {
+      "zh": "30 岁出头的中国都市白领女性，深色及肩发挽成松散低髻，几缕湿发贴在颊边。米白衬衫外搭浅灰西装外套，深色西装裤，帆布鞋湿透。左手攥一杯没喝完的冰美式，背黑色通勤背包。神情克制、疲惫而清醒。",
+      "en": "Chinese urban professional woman, early 30s, dark shoulder-length hair in a loose low bun, wet strands on her cheek. Off-white shirt under a light grey blazer, dark suit trousers, soaked canvas shoes. Iced americano in her left hand, black commuter backpack. Restrained, tired but lucid."
+    },
+    "him": {
+      "zh": "35 岁左右中国男性，短发，浅灰色衬衫，身形微胖。站在便利店屋檐下，迟疑的、半张开的试探性微笑。",
+      "en": "Chinese man around 35, short hair, light grey shirt, slightly heavyset. Standing under a convenience-store awning, a hesitant, half-open tentative smile."
+    }
+  },
+  "shots": [
+    {
+      "id": "s1-rain-opens",
+      "order": 1,
+      "durationSec": 6,
+      "shotType": "大远景俯拍",
+      "movement": "缓慢下摇",
+      "cast": [],
+      "zh": "暴雨毫无预兆地砸下来。北京国贸地铁口，人群涌上台阶避雨，发白的水泥地被雨点砸出密集水花，写字楼玻璃幕墙在雨幕中失焦。俯拍大远景缓慢下摇到地铁口。",
+      "prompt_zh": "暴雨突然砸在北京国贸地铁口，人群在台阶上避雨，水泥地泛白光、雨点砸出密集水花，玻璃幕墙写字楼在雨幕中模糊，俯拍大远景缓慢下摇，电影感写实，青灰蓝色调，35mm胶片颗粒，4K",
+      "prompt_en": "Sudden torrential rain slams a Beijing CBD subway entrance, crowd sheltering on the steps, pale concrete exploding with raindrops, glass towers blurred behind curtains of rain. High wide shot slowly tilting down. Cinematic realism, slate-teal palette, 35mm film grain, 4K.",
+      "textOverlay": null
+    },
+    {
+      "id": "s2-she-freezes",
+      "order": 2,
+      "durationSec": 8,
+      "shotType": "中近景",
+      "movement": "轻微手持",
+      "cast": ["her"],
+      "zh": "她站在台阶边缘正要冲进雨里——抬头的瞬间定住。左手冰美式，口袋里手机在震。雨水从遮阳棚边缘连成水帘落在她面前。",
+      "prompt_zh": "【她】站在地铁口台阶边缘，正要低头冲进暴雨的瞬间突然抬头定住，望向马路对面，雨水从遮阳棚边缘成帘落下挡在镜头与她之间，中近景轻微手持感，电影感写实，青灰蓝色调，浅景深",
+      "prompt_en": "[HER] at the edge of subway steps, about to dash into the rain, suddenly looks up and freezes, staring across the road. A curtain of water pours off the awning edge between camera and her. Medium close-up, subtle handheld. Cinematic realism, slate-teal palette, shallow DOF.",
+      "textOverlay": "七年没见。"
+    },
+    {
+      "id": "s3-him-across",
+      "order": 3,
+      "durationSec": 8,
+      "shotType": "长焦远摄",
+      "movement": "固定",
+      "cast": ["him"],
+      "zh": "八车道马路对面，便利店屋檐下的男人抬起头，隔着一整场雨望过来。车流穿过前景带起水雾，长焦把雨幕压缩成半透明的墙。",
+      "prompt_zh": "八车道马路对面便利店屋檐下，【他】从手机上抬起头隔着暴雨望向镜头方向，车流穿过前景带起水雾，长焦压缩使雨幕像半透明的墙，电影感写实，青灰蓝色调，胶片颗粒",
+      "prompt_en": "Across eight lanes, under a convenience-store awning, [HIM] looks up from his phone through the downpour toward camera. Passing traffic kicks up mist in the foreground; telephoto compression turns the rain into a translucent wall. Cinematic realism, slate-teal palette, film grain.",
+      "textOverlay": "她等着疼。"
+    },
+    {
+      "id": "s4-empty-pocket",
+      "order": 4,
+      "durationSec": 6,
+      "shotType": "特写",
+      "movement": "固定微晃",
+      "cast": ["her"],
+      "zh": "她的手伸进包内侧拉链袋翻找：唇膏、纸巾、数据线、地铁卡——动作停住。摸空了。",
+      "prompt_zh": "女人的手在黑色背包内侧拉链袋里翻找的特写，翻出唇膏、纸巾、数据线、地铁卡，动作突然停住，手指悬在空的拉链袋里，雨声环境，特写镜头，浅景深，电影感写实，冷色调",
+      "prompt_en": "Close-up of a woman's hand searching the inner zip pocket of a black backpack: lipstick, tissues, a charging cable, a metro card — the motion suddenly stops, fingers hovering in the empty pocket. Rain ambience. Extreme close-up, shallow DOF, cinematic realism, cool tones.",
+      "textOverlay": null
+    },
+    {
+      "id": "s5-ticket-memory",
+      "order": 5,
+      "durationSec": 6,
+      "shotType": "微距·回忆质感",
+      "movement": "极缓推近后褪白",
+      "cast": [],
+      "zh": "记忆画面：一张 2017 年的演唱会票根躺在包内侧透明拉链袋里，微距，暖旧色调——然后整个画面像被水洗过一样褪白消失。",
+      "prompt_zh": "微距特写：一张2017年旧演唱会票根安静躺在包内侧透明拉链袋里，暖黄怀旧色调，极缓推近，随后画面像被水冲刷一样逐渐褪色变白消失，回忆质感，胶片颗粒",
+      "prompt_en": "Macro close-up: a worn 2017 concert ticket stub resting inside a clear zip pouch of a handbag, warm nostalgic tones, extremely slow push-in — then the image washes out to white like water dissolving ink. Memory texture, film grain.",
+      "textOverlay": "供了七年的票根，早就没了。"
+    },
+    {
+      "id": "s6-not-hurting",
+      "order": 6,
+      "durationSec": 8,
+      "shotType": "面部特写",
+      "movement": "缓慢推近",
+      "cast": ["her"],
+      "zh": "雨中她的脸，缓慢推近。雨水和泪水混在一起分不清，睫毛挂着水珠——但眼神是平静清醒的。不是崩溃，是确认。",
+      "prompt_zh": "暴雨中【她】的面部特写缓慢推近，雨水顺着散开的发髻流下与泪水混在一起分不清，睫毛挂着水珠，但眼神平静清醒不是悲伤，像确认了什么，电影感写实，青灰蓝色调，浅景深，4K",
+      "prompt_en": "Slow push-in on [HER] face in the downpour. Rain streams from her loosened bun, indistinguishable from tears; droplets on her lashes — yet her eyes are calm and lucid, not grief but recognition. Cinematic realism, slate-teal palette, shallow DOF, 4K.",
+      "textOverlay": "她没在疼。"
+    },
+    {
+      "id": "s7-turn-and-run",
+      "order": 7,
+      "durationSec": 8,
+      "shotType": "中景跟拍",
+      "movement": "横移跟拍",
+      "cast": ["her"],
+      "zh": "她对马路对面做了个口型，一个很轻的、几乎抱歉的笑。扔掉纸杯，拉了下背包带，转身跑进雨里，水花在脚下溅开。",
+      "prompt_zh": "【她】对着马路对面做了一个口型，露出很轻的几乎是抱歉的微笑，把纸杯扔进垃圾桶，拉了一下背包带，转身跑进暴雨里，水花在帆布鞋下溅开，中景横移跟拍，电影感写实，雨水反光",
+      "prompt_en": "[HER] mouths a few words toward the far side of the road with a light, almost apologetic smile, drops her paper cup into a bin, tugs her backpack strap, turns and runs into the rain, water splashing under canvas shoes. Medium tracking shot, lateral. Cinematic realism, rain reflections.",
+      "textOverlay": "“我迟到了。”"
+    },
+    {
+      "id": "s8-green-light",
+      "order": 8,
+      "durationSec": 8,
+      "shotType": "大远景固定",
+      "movement": "固定",
+      "cast": ["her", "him"],
+      "zh": "绿灯亮起。她跑过斑马线，消失在雨幕和人流里。男人还站在对面屋檐下，没有动。城市的雨声。",
+      "prompt_zh": "大远景固定机位：绿灯亮起，女人跑过雨中的斑马线消失在雨幕和人群里，马路对面便利店屋檐下男人静静站着没有动，城市暴雨，电影感写实，青灰蓝色调，收尾镜头",
+      "prompt_en": "Locked-off wide shot: the light turns green, the woman runs across the rain-soaked crosswalk and disappears into the downpour and the crowd; across the road the man stands still under the awning, unmoving. Urban rainstorm. Cinematic realism, slate-teal palette, closing shot.",
+      "textOverlay": "她痊愈了很久了，只是没人通知她。"
+    }
+  ],
+  "bgm": {
+    "desc": "疏落的独奏钢琴 + 雨声环境，缓慢推进，最后归于安静的释然。忧郁但不悲伤。",
+    "sunoPrompt": "sparse solo piano with rain ambience, slow cinematic build, melancholic but ultimately serene resolution, no vocals, 70 BPM, film score",
+    "license": "AI 生成 / CC0"
+  },
+  "editNotes": [
+    "字幕卡用 H5 同款衬线字体（Songti/Noto Serif SC），米白 #ece9e3 与金 #c9a96a，压暗底",
+    "片尾字卡：『七年没人通知我』 + OPENBOOK + 完整版在主页",
+    "textOverlay 在剪辑阶段叠加，不写进生成 prompt",
+    "跨镜头角色一致性：优先用「文生图定妆 → 图生视频」工作流；同一张定妆图供 s2/s6/s7 作首帧",
+    "总时长 58s 素材 + 字卡缓冲 ≈ 65s 成片"
+  ]
+}
