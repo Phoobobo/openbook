@@ -78,6 +78,7 @@
 | 创作 / 阅读原型（Creator 工作台 + Reader 沉浸阅读 + BGM） | [`experiments/microfiction-prototype/`](experiments/microfiction-prototype/) | ✅ 本地可跑 |
 | 首篇故事 | [`stories/qinian-mei-ren-tongzhi-wo.md`](stories/qinian-mei-ren-tongzhi-wo.md) | 🟡 初稿，待去 AI 化 |
 | 读者 H5（GitHub Pages 静态托管） | [`docs/`](docs/) | ✅ 部署 |
+| 创作端静态 demo（演示模式 + 自带 key） | [`docs/creator/`](docs/creator/) | ✅ 部署 |
 | 小红书宣发包 | [`distribution/xiaohongshu/`](distribution/xiaohongshu/) | ✅ 待发布 |
 
 ### 创作工作流（实操路径）
@@ -89,9 +90,22 @@
 5. 配 BGM（AI 生成 + CC0），导出 H5
 6. 在小红书 / 公众号 / H5 投放，看真实读者反应
 
-### 部署架构说明（为什么不是直接部署原型）
+### 部署架构说明
 
-原型的 Creator 依赖本地 LLM key、Reader 从 localStorage 读数据——**两者都不适合直接公开部署**（会泄露 key，且新访客看不到内容）。
-因此公开面采用**自包含静态 H5**（故事内联、无后端、无 key），托管到 GitHub Pages。原型保持为本地创作工具。
+公开面全部走 GitHub Pages 静态托管，无服务器、无冷启动、不暴露任何 key：
+
+| 入口 | 地址 | 说明 |
+|---|---|---|
+| 读者 H5 | https://phoobobo.github.io/openbook/ | 自包含单页（故事内联、无后端） |
+| 创作端 demo | https://phoobobo.github.io/openbook/creator/ | 原型构建产物，见下 |
+
+创作端原本依赖 Express 后端（LLM key）+ localStorage，直接公开会泄露 key。解法是让它**三态运行**：
+
+1. 访客**自带 key** → 浏览器直连 OpenAI 兼容接口，key 只存本人 localStorage
+2. **本地 dev** 未填 key → 仍走 Express 后端（`.env` 里的 key），创作工作流不变
+3. **静态部署**未填 key → **演示模式**返回预置样例，UI 明示「未调用真实模型」
+
+种子库构建时由 `scripts/gen-static-seeds.mjs` 从 `seeds/` 打包成静态 `seeds.json`；路由用 HashRouter 免服务端回退。
+重新部署：`cd experiments/microfiction-prototype && npm run build:demo`，产物直接落到 `docs/creator/`，push 即上线。
 
 > LLM 提供方：原型走 OpenRouter（OpenAI 兼容）。注意免费 model slug 会轮换 / 下线（`:free` 后缀），失效时在 `.env` 换一个当前可用的免费模型，或绑定自己的直连 key。
