@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import StoryViewer from '../components/reader/StoryViewer';
 import BGMPlayer from '../components/reader/BGMPlayer';
 import { eventsStore, storiesStore } from '../store/storage';
+import { bootstrapDemoDataOnce } from '../store/bootstrap';
 import type { Story } from '../types';
 
 export default function ReaderPage() {
@@ -17,6 +18,11 @@ export default function ReaderPage() {
   useEffect(() => {
     const refresh = () => setStories(storiesStore.list().slice().reverse());
     refresh();
+    // 直接落在阅读 tab 的访客也要能自动带好故事库
+    let alive = true;
+    bootstrapDemoDataOnce().then(({ stories: added }) => {
+      if (alive && added > 0) refresh();
+    });
     const onVisibility = () => {
       if (document.visibilityState === 'visible') refresh();
     };
@@ -27,6 +33,7 @@ export default function ReaderPage() {
     document.addEventListener('visibilitychange', onVisibility);
     window.addEventListener('storage', onStorage);
     return () => {
+      alive = false;
       window.removeEventListener('focus', refresh);
       document.removeEventListener('visibilitychange', onVisibility);
       window.removeEventListener('storage', onStorage);
@@ -87,7 +94,18 @@ export default function ReaderPage() {
       });
       const idx = stories.findIndex((s) => s.id === toStoryId);
       const el = sectionsRef.current.get(idx);
-      if (el) el.scrollIntoView({ behavior: 'smooth' });
+      if (!el) return;
+      // 容器同时有 CSS scroll-smooth 和 snap-mandatory，此时 scrollIntoView
+      // 会被吸附立刻取消（分支按钮看上去像没反应）。临时切成 auto 直接定位才可靠。
+      const container = el.parentElement;
+      if (!container) {
+        el.scrollIntoView({ behavior: 'auto' });
+        return;
+      }
+      const prev = container.style.scrollBehavior;
+      container.style.scrollBehavior = 'auto';
+      container.scrollTop = el.offsetTop;
+      container.style.scrollBehavior = prev;
     },
     [stories],
   );

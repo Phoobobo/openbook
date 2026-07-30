@@ -4,7 +4,7 @@ import StoryWorkbench from '../components/creator/StoryWorkbench';
 import StoryList from '../components/creator/StoryList';
 import LlmKeyBar from '../components/creator/LlmKeyBar';
 import { seedsStore, storiesStore } from '../store/storage';
-import { bootstrapSeedsOnce } from '../store/seedImport';
+import { bootstrapDemoDataOnce } from '../store/bootstrap';
 import type { Seed, Story } from '../types';
 
 export default function CreatorPage() {
@@ -19,10 +19,10 @@ export default function CreatorPage() {
 
   useEffect(() => {
     reload();
-    // 首次访问自动带好种子库，演示时不用先点「导入种子」
+    // 首次访问自动带好种子库和故事库，演示时不用先点「导入种子」
     let alive = true;
-    bootstrapSeedsOnce().then((imported) => {
-      if (alive && imported) reload();
+    bootstrapDemoDataOnce().then(({ seeds, stories }) => {
+      if (alive && seeds + stories > 0) reload();
     });
     return () => {
       alive = false;
