@@ -4,6 +4,7 @@ import StoryWorkbench from '../components/creator/StoryWorkbench';
 import StoryList from '../components/creator/StoryList';
 import LlmKeyBar from '../components/creator/LlmKeyBar';
 import { seedsStore, storiesStore } from '../store/storage';
+import { bootstrapSeedsOnce } from '../store/seedImport';
 import type { Seed, Story } from '../types';
 
 export default function CreatorPage() {
@@ -18,6 +19,14 @@ export default function CreatorPage() {
 
   useEffect(() => {
     reload();
+    // 首次访问自动带好种子库，演示时不用先点「导入种子」
+    let alive = true;
+    bootstrapSeedsOnce().then((imported) => {
+      if (alive && imported) reload();
+    });
+    return () => {
+      alive = false;
+    };
   }, []);
 
   const toggleSelect = (id: string) =>
