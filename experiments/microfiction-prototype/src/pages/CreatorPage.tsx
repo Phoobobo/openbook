@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import SeedList from '../components/creator/SeedList';
 import StoryWorkbench from '../components/creator/StoryWorkbench';
 import StoryList from '../components/creator/StoryList';
+import LlmKeyBar from '../components/creator/LlmKeyBar';
 import { seedsStore, storiesStore } from '../store/storage';
 import type { Seed, Story } from '../types';
 
@@ -23,7 +24,9 @@ export default function CreatorPage() {
     setSelectedIds((cur) => (cur.includes(id) ? cur.filter((x) => x !== id) : [...cur, id]));
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-[minmax(320px,1fr)_minmax(0,2fr)] gap-6 max-w-6xl mx-auto px-5 py-6">
+    <div className="max-w-6xl mx-auto px-5 py-6 flex flex-col gap-6">
+      <LlmKeyBar />
+      <div className="grid grid-cols-1 lg:grid-cols-[minmax(320px,1fr)_minmax(0,2fr)] gap-6">
       <div className="flex flex-col gap-6 min-w-0">
         <SeedList
           seeds={seeds}
@@ -40,6 +43,7 @@ export default function CreatorPage() {
           onClearSelection={() => setSelectedIds([])}
         />
         <StoryList stories={stories} onChange={reload} />
+      </div>
       </div>
     </div>
   );

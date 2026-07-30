@@ -49,7 +49,8 @@ export default function SeedList({ seeds, selectedIds, onChange, onToggleSelect 
     setImporting(true);
     setImportMsg(null);
     try {
-      const res = await fetch('/api/seeds');
+      // 静态种子包，构建时由 scripts/gen-static-seeds.mjs 从仓库 seeds/ 生成
+      const res = await fetch(`${import.meta.env.BASE_URL}seeds.json`);
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const data = (await res.json()) as { bundles: SeedBundle[] };
       const flat = data.bundles.flatMap((b) =>
