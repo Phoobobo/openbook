@@ -1,8 +1,9 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import type { Seed, SeedType } from '../../types';
 import { SEED_TYPE_LABEL } from '../../types';
 import { seedsStore, newId } from '../../store/storage';
 import { fetchSeedBundles, importBundles } from '../../store/seedImport';
+import { buildSeedFiles, downloadFile, parseSeedFile } from '../../store/seedFiles';
 
 interface Props {
   seeds: Seed[];
@@ -27,6 +28,7 @@ export default function SeedList({ seeds, selectedIds, onChange, onToggleSelect 
   const [importing, setImporting] = useState(false);
   const [importMsg, setImportMsg] = useState<string | null>(null);
   const [expandedId, setExpandedId] = useState<string | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const knownFamilies = useMemo(() => {
     const set = new Set<string>();
@@ -54,6 +56,42 @@ export default function SeedList({ seeds, selectedIds, onChange, onToggleSelect 
       onChange();
     } catch (err) {
       setImportMsg(`导入失败：${err instanceof Error ? err.message : String(err)}`);
+    } finally {
+      setImporting(false);
+    }
+  };
+
+  // 导出成仓库同格式的 .seeds.json（一族一个文件），可直接放进仓库 seeds/
+  const exportSeeds = () => {
+    const files = buildSeedFiles(seeds);
+    if (files.length === 0) {
+      setImportMsg('种子库是空的，没有可导出的内容');
+      return;
+    }
+    files.forEach((f) => downloadFile(f.filename, f.json));
+    setImportMsg(
+      `已导出 ${files.length} 个文件：${files.map((f) => f.filename).join('、')}` +
+        '（放进仓库 seeds/ 即可进入共享种子库）',
+    );
+  };
+
+  const importFromFile = async (file: File) => {
+    setImporting(true);
+    setImportMsg(null);
+    try {
+      const bundles = parseSeedFile(await file.text());
+      const total = bundles.reduce((n, b) => n + b.seeds.length, 0);
+      if (total === 0) {
+        setImportMsg(`${file.name} 里没有种子`);
+        return;
+      }
+      const { added, skipped } = importBundles(bundles);
+      setImportMsg(
+        `从 ${file.name} 导入 ${added} 条${skipped ? ` · 跳过 ${skipped} 条同名` : ''}`,
+      );
+      onChange();
+    } catch (err) {
+      setImportMsg(`读取失败：${err instanceof Error ? err.message : String(err)}`);
     } finally {
       setImporting(false);
     }
@@ -98,14 +136,42 @@ export default function SeedList({ seeds, selectedIds, onChange, onToggleSelect 
     <section className="flex flex-col gap-3">
       <div className="flex items-center justify-between gap-2">
         <h2 className="text-sm font-medium text-white/80 tracking-wide">种子库</h2>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center flex-wrap justify-end gap-1.5">
           <button
             onClick={importSeeds}
             disabled={importing}
             className="text-xs px-3 py-1 rounded-full bg-white/5 hover:bg-white/15 text-white/70 hover:text-white transition disabled:opacity-50"
+            title="导入内置种子库"
           >
             {importing ? '导入中…' : '导入种子'}
           </button>
+          <button
+            onClick={exportSeeds}
+            className="text-xs px-3 py-1 rounded-full bg-white/5 hover:bg-white/15 text-white/70 hover:text-white transition"
+            title="导出为 .seeds.json，可放进仓库 seeds/ 或换设备恢复"
+          >
+            导出
+          </button>
+          <button
+            onClick={() => fileInputRef.current?.click()}
+            disabled={importing}
+            className="text-xs px-3 py-1 rounded-full bg-white/5 hover:bg-white/15 text-white/70 hover:text-white transition disabled:opacity-50"
+            title="从本地 .seeds.json 读入"
+          >
+            读文件
+          </button>
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept=".json,application/json"
+            className="hidden"
+            onChange={(e) => {
+              const f = e.target.files?.[0];
+              // 清空 value，同一个文件才能被再次选中触发 change
+              e.target.value = '';
+              if (f) void importFromFile(f);
+            }}
+          />
           <button
             onClick={startNew}
             className="text-xs px-3 py-1 rounded-full bg-white/10 hover:bg-white/20 text-white/90 transition"
